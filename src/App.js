@@ -37,6 +37,8 @@ function App() {
 
   const [Data, setData] = useState([]);
   const [FinalData, setFinalData] = useState([]);
+  const [Progressval, setProgressval] = useState(1);
+  const [Color, setColor] = useState("secondary")
   return (
 
 
@@ -50,11 +52,12 @@ function App() {
      <div className={classes.rootPaper}>
                       
       <Paper elevation={4} >
+     
+
+
+      <makeContext.Provider value={{Data,setData,FinalData,setFinalData,Progressval,setProgressval,Color,setColor}}>
       <LinearWithValueLabel/>
       <CircularStatic/>
-
-
-      <makeContext.Provider value={{Data,setData,FinalData,setFinalData}}>
       <CustomizedSteppers />
       </makeContext.Provider>
       

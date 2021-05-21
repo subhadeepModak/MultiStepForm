@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Work() {
-  const {Data,FinalData,setData,setFinalData}= useContext(makeContext);
+  const {Data,setData}= useContext(makeContext);
   
 
     const classes = useStyles();

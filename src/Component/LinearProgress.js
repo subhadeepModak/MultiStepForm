@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import {makeContext} from '../App'
+
 
 function LinearProgressWithLabel(props) {
   return (
@@ -36,20 +38,21 @@ const useStyles = makeStyles({
 
 export default function LinearWithValueLabel() {
   const classes = useStyles();
-  const [progress, setProgress] = React.useState(10);
+  
+  const {Progressval,Color}= useContext(makeContext);
 
   React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? 0: prevProgress + 25));
-    }, 800);
-    return () => {
-      clearInterval(timer);
-    };
+    // const timer = setInterval(() => {
+    //   setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 25));
+    // }, 800);
+    // return () => {
+    //   clearInterval(timer);
+    // };
   }, []);
 
   return (
     <div className={classes.root}>
-      <LinearProgressWithLabel value={progress} />
+      <LinearProgressWithLabel variant="determinate" value={Progressval} color={Color}/>
     </div>
   );
 }

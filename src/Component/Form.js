@@ -17,31 +17,9 @@ import Personal from './PersonalDeatils'
 import Education from './Education'
 import {makeContext }  from '../App'
 
-{var user = JSON.parse(localStorage.getItem('user'))}
 
+var user={};
 
-const QontoConnector = withStyles({
-  alternativeLabel: {
-    top: 10,
-    left: 'calc(-50% + 16px)',
-    right: 'calc(50% + 16px)',
-  },
-  active: {
-    '& $line': {
-      borderColor: '#784af4',
-    },
-  },
-  completed: {
-    '& $line': {
-      borderColor: '#784af4',
-    },
-  },
-  line: {
-    borderColor: '#eaeaf0',
-    borderTopWidth: 3,
-    borderRadius: 1,
-  },
-})(StepConnector);
 
 const useQontoStepIconStyles = makeStyles({
   root: {
@@ -207,29 +185,44 @@ function getStepContent(step) {
 }
 
 export default function CustomizedSteppers() {
-  const {Data,FinalData,setData,setFinalData}= useContext(makeContext);
+  const {Data,Progressval, setProgressval,setColor}= useContext(makeContext);
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(1);
+  const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-  const saveData = () => {
-    localStorage.setItem('user', JSON.stringify(Data));
-  console.log(Data);
-  handleNext();
-  };
+  
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setProgressval(Progressval+33);
+    if(Progressval>33) setColor('primary');
+    if(Progressval>66) setColor('secondary');
+    if(Progressval>99) setColor('primary');
+    
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setProgressval(Progressval-33);
+    if(Progressval>33) setColor('primary');
+    if(Progressval>66) setColor('secondary');
+    if(Progressval>99) setColor('primary');
   };
 
   const handleReset = () => {
     setActiveStep(0);
+    setProgressval(1);
+    setColor('secondary');
+    
+  };
+  const saveData = () => {
+    localStorage.setItem('user', JSON.stringify(Data));
+    user = JSON.parse(localStorage.getItem('user'));
+    console.log(Data);
+    handleNext();
   };
 
   return (
+
     <div className={classes.root}>
 
       <form>
@@ -244,26 +237,28 @@ export default function CustomizedSteppers() {
       </Stepper>
       <div>
         {activeStep === steps.length ? (
-
-      
+         
+             
+         
           <div>
-          
+           
             <Typography className={classes.instructions}>
              localStorage Data
            
             </Typography>
-          
-            <p>Name:{user.name}</p>
-            <p>Age:{user.age}</p>
-            <p>Mobile:{user.mobile}</p>
-            <p>School:{user.school}</p>
-            <p>Company:{user.company}</p>
+            
+         
+            <p>Name: {user.name}</p>
+            <p>Age: {user.age}</p>
+            <p>Mobile: {user.mobile}</p>
+            <p>School: {user.school}</p>
+            <p>Company: {user.company}</p>
 
             <Button onClick={handleReset} className={classes.button}>
             Update
             </Button>
           </div>
-        ) : (
+        )  : (
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
             <div>
