@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     position:'center',
     '& > *': {
-      marginLeft:theme.spacing(50),
+      marginLeft:theme.spacing(37),
       margin: theme.spacing(1),
-      width: theme.spacing(70),
-      height: theme.spacing(60),
+      width: theme.spacing(100),
+      height: theme.spacing(70),
     },
   },
 }));
@@ -34,9 +34,12 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes=useStyles();
+  const [Count, setCount] = useState( 0);
+  const [CountExp, setCountExp] = useState(0);
 
-  const [Data, setData] = useState([]);
-  const [FinalData, setFinalData] = useState([]);
+  const [Data, setData] = useState( []);
+ const [Edu, setEdu] = useState([ {school:'', degree:'', year:'', percentage:''} ]);
+ const [Exp, setExp] = useState([ {company:'', desig:'', exp:''} ]); 
   const [Progressval, setProgressval] = useState(1);
   const [Color, setColor] = useState("secondary")
   return (
@@ -55,7 +58,7 @@ function App() {
      
 
 
-      <makeContext.Provider value={{Data,setData,FinalData,setFinalData,Progressval,setProgressval,Color,setColor}}>
+      <makeContext.Provider value={{Data,setData,Progressval,setProgressval,Color,setColor,Edu,setEdu,Exp,setExp, Count,setCount,CountExp,setCountExp}}>
       <LinearWithValueLabel/>
       <CircularStatic/>
       <CustomizedSteppers />

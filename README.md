@@ -1,13 +1,20 @@
 # task
+1.3 step form 
+2.Multi color progress bar 
+3.useContext for data sharing
+4.material Ui design
+5.add more input fields as per requirements
+----------------------------------------------------------------------------
 
-1.
-2.
-3.
-4.
-5.
-6.
+*** Step to Configure *** 
+-------------------------------------------------------------------
+# Clone Repo
+# npm install
+# npm start
 
-
+----------------------------------------------------------------------------
+                                Default 
+----------------------------------------------------------------------------
 
 # Getting Started with Create React App
 
