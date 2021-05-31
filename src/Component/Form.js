@@ -227,32 +227,27 @@ export default function CustomizedSteppers() {
 const FormValidate=()=>{
   if(!Data['name']||!Data['age']||!Data['mobile']){
    
-    console.log("else1111");
+    alert("Please fill all the data");
   }
-  else if(typeof Data['name']!== "undefined" ){    
-    if(!Data['name'].match(/^[a-zA-Z' ']+$/)){
+  else if(!Data['name'].match(/^[a-zA-Z' ']+$/)){
      setNameError(true); 
-     console.log('error name1');
+     alert("Please fill data by Proper format!!");
     
-    }        
+         
  }
- else if(typeof Data['age']!== "undefined"){
-    
-  if(!Data['age'].match(/^[0-9]+$/)){
+ else if(!Data['age'].match(/^[0-9]+$/)){
    setAgeError(true);
-   console.log('error name2');    
-  }        
+   alert("Please fill data by Proper format!!");  
+          
 }
-else if(typeof Data['mobile']!== "undefined"){
-    
-  if(!Data['mobile'].match(/^[6-9]\d{9}$/)){
-    setMobileError(true);setValidate(false);
-    console.log('error name3');
+else if(!Data['mobile'].match(/^[6-9]\d{9}$/)){
+    setMobileError(true);
+    alert("Please fill data by Proper format!!");
     setValidate(false);
-  }        
+         
 }
 else{
-  console.log("else");
+  alert("Success!!");
   setActiveStep((prevActiveStep) => prevActiveStep + 1);
   setProgressval(Progressval + 33);
   if (Progressval > 33) setColor("primary");
