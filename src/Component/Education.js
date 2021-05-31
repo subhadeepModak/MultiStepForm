@@ -30,7 +30,7 @@ const handleAdd=()=>{
     year:'',
     percentage:''  
     }])
-console.log(Edu);
+
    
 }
  const handleDel=(index)=>{

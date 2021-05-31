@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft:theme.spacing(37),
       margin: theme.spacing(1),
       width: theme.spacing(100),
-      height: theme.spacing(70),
+      minHeight: theme.spacing(70),
     },
   },
 }));
@@ -37,11 +37,12 @@ function App() {
   const [Count, setCount] = useState( 0);
   const [CountExp, setCountExp] = useState(0);
 
-  const [Data, setData] = useState( []);
+  const [Data, setData] = useState( [{name:'',age:'',mobile:''}]);
  const [Edu, setEdu] = useState([ {school:'', degree:'', year:'', percentage:''} ]);
  const [Exp, setExp] = useState([ {company:'', desig:'', exp:''} ]); 
   const [Progressval, setProgressval] = useState(1);
   const [Color, setColor] = useState("secondary")
+
   return (
 
 

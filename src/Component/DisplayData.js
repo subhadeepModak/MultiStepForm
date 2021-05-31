@@ -2,9 +2,8 @@ import { Grid, TextField } from '@material-ui/core'
 import React from 'react'
 
 function DisplayData(props) {
-    const data=props.data;
-    const edu= props.edu;
-    // const exp=props.exp;
+    const data=props.data;   
+    
    
     
     return (

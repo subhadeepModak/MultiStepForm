@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext ,useState} from "react";
 import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -166,18 +166,34 @@ function getStepContent(step) {
   }
 }
 export default function CustomizedSteppers() {
+  
   const { Data, Progressval, setProgressval, setColor,Edu,Exp } =
     useContext(makeContext);
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+
+  const [Validate, setValidate] = React.useState(false);
+  const [NameError, setNameError] = useState(false);
+  const [AgeError, setAgeError] = useState(false);
+  const [MobileError, setMobileError] = useState(false);
+  
+
+
+
+
+
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setProgressval(Progressval + 33);
-    if (Progressval > 33) setColor("primary");
-    if (Progressval > 66) setColor("secondary");
-    if (Progressval > 99) setColor("primary");
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setProgressval(Progressval + 33);
+      if (Progressval > 33) setColor("primary");
+      if (Progressval > 66) setColor("secondary");
+      if (Progressval > 99) setColor("primary");
+    
+   
   };
+
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
     setProgressval(Progressval - 33);
@@ -185,6 +201,8 @@ export default function CustomizedSteppers() {
     if (Progressval > 66) setColor("secondary");
     if (Progressval > 99) setColor("primary");
   };
+
+
   const handleReset = () => {
     setActiveStep(0);
     setProgressval(1);
@@ -200,10 +218,52 @@ export default function CustomizedSteppers() {
     educat = JSON.parse(localStorage.getItem("educations"));
     expe = JSON.parse(localStorage.getItem("Exp"));
    
-   
-
     handleNext();
   };
+
+
+  //=======Validation========//
+
+const FormValidate=()=>{
+  if(!Data['name']||!Data['age']||!Data['mobile']){
+   
+    console.log("else1111");
+  }
+  else if(typeof Data['name']!== "undefined" ){    
+    if(!Data['name'].match(/^[a-zA-Z' ']+$/)){
+     setNameError(true); 
+     console.log('error name1');
+    
+    }        
+ }
+ else if(typeof Data['age']!== "undefined"){
+    
+  if(!Data['age'].match(/^[0-9]+$/)){
+   setAgeError(true);
+   console.log('error name2');    
+  }        
+}
+else if(typeof Data['mobile']!== "undefined"){
+    
+  if(!Data['mobile'].match(/^[6-9]\d{9}$/)){
+    setMobileError(true);setValidate(false);
+    console.log('error name3');
+    setValidate(false);
+  }        
+}
+else{
+  console.log("else");
+  setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  setProgressval(Progressval + 33);
+  if (Progressval > 33) setColor("primary");
+  if (Progressval > 66) setColor("secondary");
+  if (Progressval > 99) setColor("primary");
+}
+
+
+}
+
+
   return (
     <div className={classes.root}>
       <form autoComplete='off'>
@@ -265,7 +325,7 @@ export default function CustomizedSteppers() {
                     // type="submit"
                     variant="contained"
                     color="primary"
-                    onClick={handleNext}
+                    onClick={FormValidate}
                     className={classes.button}
                     endIcon={<Icon>send</Icon>}
                   >

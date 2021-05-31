@@ -33,7 +33,11 @@ LinearProgressWithLabel.propTypes = {
 const useStyles = makeStyles({
   root: {
     width: '100%',
-  },
+    '& .MuiLinearProgress-barColorSecondary':{
+    
+    },
+  }
+
 });
 
 export default function LinearWithValueLabel() {
@@ -41,14 +45,7 @@ export default function LinearWithValueLabel() {
   
   const {Progressval,Color}= useContext(makeContext);
 
-  React.useEffect(() => {
-    // const timer = setInterval(() => {
-    //   setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 25));
-    // }, 800);
-    // return () => {
-    //   clearInterval(timer);
-    // };
-  }, []);
+  
 
   return (
     <div className={classes.root}>
