@@ -1,4 +1,4 @@
-import React, { useContext ,useState} from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -86,7 +86,6 @@ const ColorlibConnector = withStyles({
     borderRadius: 1,
   },
 })(StepConnector);
-
 const useColorlibStepIconStyles = makeStyles({
   root: {
     backgroundColor: "#ccc",
@@ -152,7 +151,6 @@ const useStyles = makeStyles((theme) => ({
 function getSteps() {
   return ["Personal Details", "Education", "Profession"];
 }
-
 function getStepContent(step) {
   switch (step) {
     case 0:
@@ -165,35 +163,20 @@ function getStepContent(step) {
       return "Unknown step";
   }
 }
-export default function CustomizedSteppers() {
-  
-  const { Data, Progressval, setProgressval, setColor,Edu,Exp } =
+
+export default function CustomizedSteppers() {  
+  const { setData,Data, Progressval, setProgressval, setColor,Edu,Exp } =
     useContext(makeContext);
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-
-  const [Validate, setValidate] = React.useState(false);
-  const [NameError, setNameError] = useState(false);
-  const [AgeError, setAgeError] = useState(false);
-  const [MobileError, setMobileError] = useState(false);
-  
-
-
-
-
-
   const handleNext = () => {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setProgressval(Progressval + 33);
       if (Progressval > 33) setColor("primary");
       if (Progressval > 66) setColor("secondary");
       if (Progressval > 99) setColor("primary");
-    
-   
   };
-
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
     setProgressval(Progressval - 33);
@@ -201,59 +184,29 @@ export default function CustomizedSteppers() {
     if (Progressval > 66) setColor("secondary");
     if (Progressval > 99) setColor("primary");
   };
-
-
   const handleReset = () => {
     setActiveStep(0);
     setProgressval(1);
     setColor("secondary");
   };
-  const saveData = () => {
-
-    
-    localStorage.setItem("user", JSON.stringify(Data));
-    localStorage.setItem("educations", JSON.stringify(Edu));
-    localStorage.setItem("Exp", JSON.stringify(Exp));
-    user = JSON.parse(localStorage.getItem("user"));
-    educat = JSON.parse(localStorage.getItem("educations"));
-    expe = JSON.parse(localStorage.getItem("Exp"));
-   
-    handleNext();
-  };
+  const saveData = () => {localStorage.setItem("user", JSON.stringify(Data));localStorage.setItem("educations", JSON.stringify(Edu));
+    localStorage.setItem("Exp", JSON.stringify(Exp)); user = JSON.parse(localStorage.getItem("user"));educat = JSON.parse(localStorage.getItem("educations"));
+    expe = JSON.parse(localStorage.getItem("Exp")); handleNext(); };
 
 
   //=======Validation========//
 
 const FormValidate=()=>{
-  if(!Data['name']||!Data['age']||!Data['mobile']){
-   
-    alert("Please fill all the data");
-  }
-  else if(!Data['name'].match(/^[a-zA-Z' ']+$/)){
-     setNameError(true); 
-     alert("Please fill data by Proper format!!");
-    
-         
- }
- else if(!Data['age'].match(/^[0-9]+$/)){
-   setAgeError(true);
-   alert("Please fill data by Proper format!!");  
-          
-}
-else if(!Data['mobile'].match(/^[6-9]\d{9}$/)){
-    setMobileError(true);
-    alert("Please fill data by Proper format!!");
-    setValidate(false);
-         
-}
-else{
+  if(!Data['name']||!Data['age']||!Data['mobile'])setData({...Data,'nameError':true,'ageError':true,'mobileError':true}) 
+  else if(!Data['name'].match(/^[a-zA-Z' ']+$/))setData({...Data,'nameError':true,'ageError':false,'mobileError':false});
+  else if(!Data['age'].match(/^[0-9]\d{1}$/))setData({...Data,'nameError':false,'ageError':true,'mobileError':false});
+  else if(!Data['mobile'].match(/^[6-9]\d{9}$/))setData({...Data,'mobileError':true,'nameError':false,'ageError':false});
+  else{
+  setData({...Data,'nameError':false,'ageError':false,'mobileError':false})
+  setActiveStep((prevActiveStep) => prevActiveStep + 1);setProgressval(Progressval + 33);
+  if (Progressval > 33) setColor("primary");  if (Progressval > 66) setColor("secondary");  if (Progressval > 99) setColor("primary");
   alert("Success!!");
-  setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  setProgressval(Progressval + 33);
-  if (Progressval > 33) setColor("primary");
-  if (Progressval > 66) setColor("secondary");
-  if (Progressval > 99) setColor("primary");
-}
+  }
 
 
 }
